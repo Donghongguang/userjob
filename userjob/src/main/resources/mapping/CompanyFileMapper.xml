@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dong.findjob.mapper.CompanyFileMapper">
+  <resultMap id="BaseResultMap" type="com.dong.findjob.entity.CompanyFile">
+    <id column="idcompany_file" jdbcType="INTEGER" property="idcompanyFile" />
+    <result column="companyId" jdbcType="VARCHAR" property="companyid" />
+    <result column="fileId" jdbcType="VARCHAR" property="fileid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    idcompany_file, companyId, fileId
+  </sql>
+  <select id="selectByExample" parameterType="com.dong.findjob.entity.CompanyFileExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from company_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from company_file
+    where idcompany_file = #{idcompanyFile,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from company_file
+    where idcompany_file = #{idcompanyFile,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dong.findjob.entity.CompanyFileExample">
+    delete from company_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dong.findjob.entity.CompanyFile">
+    insert into company_file (idcompany_file, companyId, fileId
+      )
+    values (#{idcompanyFile,jdbcType=INTEGER}, #{companyid,jdbcType=VARCHAR}, #{fileid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dong.findjob.entity.CompanyFile">
+    insert into company_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idcompanyFile != null">
+        idcompany_file,
+      </if>
+      <if test="companyid != null">
+        companyId,
+      </if>
+      <if test="fileid != null">
+        fileId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idcompanyFile != null">
+        #{idcompanyFile,jdbcType=INTEGER},
+      </if>
+      <if test="companyid != null">
+        #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileid != null">
+        #{fileid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dong.findjob.entity.CompanyFileExample" resultType="java.lang.Long">
+    select count(*) from company_file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update company_file
+    <set>
+      <if test="record.idcompanyFile != null">
+        idcompany_file = #{record.idcompanyFile,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyid != null">
+        companyId = #{record.companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileid != null">
+        fileId = #{record.fileid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update company_file
+    set idcompany_file = #{record.idcompanyFile,jdbcType=INTEGER},
+      companyId = #{record.companyid,jdbcType=VARCHAR},
+      fileId = #{record.fileid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dong.findjob.entity.CompanyFile">
+    update company_file
+    <set>
+      <if test="companyid != null">
+        companyId = #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileid != null">
+        fileId = #{fileid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where idcompany_file = #{idcompanyFile,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dong.findjob.entity.CompanyFile">
+    update company_file
+    set companyId = #{companyid,jdbcType=VARCHAR},
+      fileId = #{fileid,jdbcType=VARCHAR}
+    where idcompany_file = #{idcompanyFile,jdbcType=INTEGER}
+  </update>
+</mapper>

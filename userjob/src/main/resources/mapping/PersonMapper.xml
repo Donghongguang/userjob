@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dong.findjob.mapper.PersonMapper">
+
+ <insert id="addPerson" parameterType="com.dong.findjob.entity.Person">
+    insert into person ( username, sex, birthday)
+    values ( #{username,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP})
+  </insert>
+ <insert id="addPersonList">
+   insert into person ( username, sex, birthday)
+   values
+   <foreach collection="list" item="emp" separator=",">
+     ( #{emp.username,jdbcType=VARCHAR}, #{emp.sex,jdbcType=VARCHAR}, #{emp.birthday,jdbcType=TIMESTAMP})
+      </foreach>
+ </insert>
+ <select id="selectAll" resultType="com.dong.findjob.entity.Person">
+ select * from person
+
+ </select>
+  
+</mapper>
